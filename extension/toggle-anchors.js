@@ -58,8 +58,16 @@ function addAllAnchors() {
 
 // Content script is programatically activated. So, do something (toggle):
 removeAllAnchors();
-if (!window.hasrun) {
+if (!window.hasShown) {
     addAllAnchors();
 }
-window.hasrun = !window.hasrun;
+window.hasShown = !window.hasShown;
+
+// Used to communicate to the background whether the CSS file needs to be inserted.
+if (window.hasrun) {
+    return false;
+} else {
+    window.hasrun = true;
+    return true;
+}
 })();
