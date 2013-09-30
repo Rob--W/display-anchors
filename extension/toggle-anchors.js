@@ -14,7 +14,6 @@ var baseAnchor = document.createElement('a');
 
 baseWrappr.style.cssText =
     'position: absolute;' +
-    'right: 0;' + // Align anchor at the right side of an element
     'top: 0;';
 baseAnchor.style.cssText =
     'position: absolute;' +
@@ -31,7 +30,7 @@ function stopPropagation(event) {
     event.stopPropagation();
 }
 
-function addAnchor(elem) {
+function getAnchor(elem) {
     var anchorValue = elem.id || elem.name;
     if (!anchorValue) return;
 
@@ -42,6 +41,9 @@ function addAnchor(elem) {
                                            holder.webkitCreateShadowRoot();
     shadow.resetStyleInheritance = true;
 
+    var paddingLeft = parseFloat(getComputedStyle(elem).getPropertyValue('padding-left')) || 0;
+    wrappr.style.left = (elem.offsetWidth - paddingLeft) + 'px';
+
     anchor.href = baseURI + '#' + anchorValue;
     anchor.textContent = '#' + anchorValue;
     anchor.addEventListener('click', stopPropagation);
@@ -50,7 +52,7 @@ function addAnchor(elem) {
 
     wrappr.appendChild(anchor);
     shadow.appendChild(wrappr);
-    elem.insertBefore(holder, elem.firstChild);
+    return holder;
 }
 
 function removeAllAnchors() {
@@ -60,7 +62,19 @@ function removeAllAnchors() {
 }
 
 function addAllAnchors() {
-    [].forEach.call(document.querySelectorAll('[id],[name]'), addAnchor);
+    var elems = document.querySelectorAll('[id],[name]');
+    var length = elems.length;
+    var anchors = [];
+    // First generate the elements...
+    for (var i = 0; i < length; ++i) {
+        anchors.push(getAnchor(elems[i]));
+    }
+    // ... then insert them the elements
+    // Not doing this causes a repaint for every element
+    for (i = 0; i < length; ++i) {
+        var elem = elems[i];
+        elem.insertBefore(anchors[i], elem.firstChild);
+    }
 }
 
 
