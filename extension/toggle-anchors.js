@@ -9,10 +9,16 @@ var baseURI = document.querySelector('base[href]') ? location.pathname + locatio
 // Non-standard HTML element to avoid collisions with page's scripts
 // Hey, this name is so exotic that it must be unique ;)
 var baseHolder = document.createElement(':a.href:');
+var baseWrappr = document.createElement('span');
 var baseAnchor = document.createElement('a');
 
+baseWrappr.style.cssText =
+    'position: absolute;' +
+    'right: 0;' + // Align anchor at the right side of an element
+    'top: 0;';
 baseAnchor.style.cssText =
-    'position: relative;' +
+    'position: absolute;' +
+    'right: 0;' + // Grow element in left direction (to avoid horizontal scrollbars)
     'display: inline-block;' +
     'white-space: pre;' +
     'margin-top: -2px;' +
@@ -30,6 +36,7 @@ function addAnchor(elem) {
     if (!anchorValue) return;
 
     var holder = baseHolder.cloneNode();
+    var wrappr = baseWrappr.cloneNode();
     var anchor = baseAnchor.cloneNode();
     var shadow = holder.createShadowRoot ? holder.createShadowRoot() :
                                            holder.webkitCreateShadowRoot();
@@ -37,12 +44,13 @@ function addAnchor(elem) {
 
     anchor.href = baseURI + '#' + anchorValue;
     anchor.textContent = '#' + anchorValue;
-    shadow.appendChild(anchor);
-
     anchor.addEventListener('click', stopPropagation);
     anchor.addEventListener('dblclick', stopPropagation);
     anchor.addEventListener('mousedown', stopPropagation);
-    elem.appendChild(holder);
+
+    wrappr.appendChild(anchor);
+    shadow.appendChild(wrappr);
+    elem.insertBefore(holder, elem.firstChild);
 }
 
 function removeAllAnchors() {

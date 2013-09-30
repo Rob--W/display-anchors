@@ -1,16 +1,18 @@
 /* :a.href: is the tag name of my tag that holds the shadow DOM */
 \:a\.href\: {
-    position: absolute !important;
+    position: relative !important;
     top: auto !important;
     right: auto !important;
     bottom: auto !important;
     left: auto !important;
 
+    display: block !important;
+
     margin: 0 !important;
     box-shadow: none !important;
     border: 0 !important;
     padding: 0 !important;
-    width: 0 !important;
+    width: 100% !important;
     height: 0 !important;
     -webkit-transform: none !important;
     transform: none !important;
