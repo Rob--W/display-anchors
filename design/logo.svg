@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="38"
+   height="38"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="logo.svg"
+   inkscape:export-filename="/home/rob/Documenten/Chrome/display-anchors/extension/icon128.png"
+   inkscape:export-xdpi="303.1579"
+   inkscape:export-ydpi="303.1579">
+  <defs
+     id="defs4">
+    <filter
+       inkscape:collect="always"
+       id="filter3829">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="0.72500003"
+         id="feGaussianBlur3831" />
+    </filter>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.98994949"
+     inkscape:cx="80.971327"
+     inkscape:cy="72.827458"
+     inkscape:document-units="px"
+     inkscape:current-layer="g3020"
+     showgrid="false"
+     inkscape:window-width="1084"
+     inkscape:window-height="582"
+     inkscape:window-x="208"
+     inkscape:window-y="196"
+     inkscape:window-maximized="0" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     transform="translate(0,-1014.3622)"
+     id="g3020"
+     inkscape:groupmode="layer"
+     inkscape:label="Layer # glow"
+     style="display:inline">
+    <text
+       sodipodi:linespacing="125%"
+       id="text3022"
+       y="315.21933"
+       x="128.57143"
+       style="font-size:40px;font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:URW Chancery L;-inkscape-font-specification:URW Chancery L Bold Italic"
+       xml:space="preserve"><tspan
+         y="315.21933"
+         x="128.57143"
+         id="tspan3024"
+         sodipodi:role="line"></tspan></text>
+    <text
+       transform="translate(0,956.36218)"
+       sodipodi:linespacing="125%"
+       id="text3026"
+       y="66"
+       x="23.571428"
+       style="font-size:40px;font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:URW Chancery L;-inkscape-font-specification:URW Chancery L Bold Italic"
+       xml:space="preserve"><tspan
+         y="66"
+         x="23.571428"
+         id="tspan3028"
+         sodipodi:role="line"></tspan></text>
+    <text
+       transform="scale(1.0395554,0.9619497)"
+       sodipodi:linespacing="125%"
+       id="text3030"
+       y="1087.7046"
+       x="3.7774122"
+       style="font-size:46.92437744000000066px;font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#003380;fill-opacity:1;stroke:#d5e5ff;font-family:URW Chancery L;-inkscape-font-specification:URW Chancery L Bold Italic;stroke-width:2.99999999000000006;stroke-miterlimit:4;stroke-dasharray:2.99999999000000006, 2.99999999000000006;stroke-linejoin:round;stroke-linecap:square;opacity:1;filter:url(#filter3829);stroke-dashoffset:0"
+       xml:space="preserve"><tspan
+         y="1087.7046"
+         x="3.7774122"
+         id="tspan3032"
+         sodipodi:role="line">#</tspan></text>
+  </g>
+  <g
+     inkscape:label="Layer #"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-1014.3622)"
+     style="display:inline">
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:URW Chancery L;-inkscape-font-specification:URW Chancery L Bold Italic"
+       x="128.57143"
+       y="315.21933"
+       id="text2985"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan2987"
+         x="128.57143"
+         y="315.21933"></tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:URW Chancery L;-inkscape-font-specification:URW Chancery L Bold Italic"
+       x="23.571428"
+       y="66"
+       id="text2989"
+       sodipodi:linespacing="125%"
+       transform="translate(0,956.36218)"><tspan
+         sodipodi:role="line"
+         id="tspan2991"
+         x="23.571428"
+         y="66"></tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:46.92437744px;font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#002255;fill-opacity:1;stroke:none;font-family:URW Chancery L;-inkscape-font-specification:URW Chancery L Bold Italic"
+       x="3.7774122"
+       y="1087.7046"
+       id="text2997"
+       sodipodi:linespacing="125%"
+       transform="scale(1.0395554,0.9619497)"><tspan
+         sodipodi:role="line"
+         id="tspan2999"
+         x="3.7774122"
+         y="1087.7046">#</tspan></text>
+  </g>
+</svg>
