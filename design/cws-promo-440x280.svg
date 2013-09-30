@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:osb="http://www.openswatchbook.org/uri/2009/osb"
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="440"
+   height="280"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="cws-promo.svg"
+   inkscape:export-filename="/home/rob/Documenten/Chrome/display-anchors/chrome-web-store/promo-440x280.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
+  <defs
+     id="defs4">
+    <linearGradient
+       id="linearGradient3828"
+       osb:paint="gradient">
+      <stop
+         style="stop-color:#000000;stop-opacity:1;"
+         offset="0"
+         id="stop3830" />
+      <stop
+         style="stop-color:#000000;stop-opacity:0;"
+         offset="1"
+         id="stop3832" />
+    </linearGradient>
+    <filter
+       inkscape:collect="always"
+       id="filter3829"
+       color-interpolation-filters="sRGB">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="0.72500003"
+         id="feGaussianBlur3831" />
+    </filter>
+    <filter
+       inkscape:collect="always"
+       id="filter3876"
+       x="-0.095965412"
+       width="1.1919308"
+       y="-0.16009617"
+       height="1.3201923">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="14.015868"
+         id="feGaussianBlur3878" />
+    </filter>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.98994949"
+     inkscape:cx="198.10601"
+     inkscape:cy="153.04935"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer2"
+     showgrid="false"
+     inkscape:window-width="1084"
+     inkscape:window-height="582"
+     inkscape:window-x="208"
+     inkscape:window-y="196"
+     inkscape:window-maximized="0" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:groupmode="layer"
+     id="layer2"
+     inkscape:label="Block">
+    <rect
+       style="fill-opacity:1;stroke:none;stroke-width:3;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:3, 3;stroke-dashoffset:0;fill:#f6ffd5;opacity:1;filter:url(#filter3876)"
+       id="rect3034"
+       width="350.52298"
+       height="210.11172"
+       x="43.436562"
+       y="33.522778" />
+  </g>
+  <g
+     transform="translate(0,-772.3622)"
+     id="g3020"
+     inkscape:groupmode="layer"
+     inkscape:label="Layer # glow"
+     style="display:inline">
+    <text
+       sodipodi:linespacing="125%"
+       id="text3022"
+       y="315.21933"
+       x="128.57143"
+       style="font-size:40px;font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:URW Chancery L;-inkscape-font-specification:URW Chancery L Bold Italic"
+       xml:space="preserve"><tspan
+         y="315.21933"
+         x="128.57143"
+         id="tspan3024"
+         sodipodi:role="line" /></text>
+    <text
+       transform="translate(0,956.36218)"
+       sodipodi:linespacing="125%"
+       id="text3026"
+       y="66"
+       x="23.571428"
+       style="font-size:40px;font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:URW Chancery L;-inkscape-font-specification:URW Chancery L Bold Italic"
+       xml:space="preserve"><tspan
+         y="66"
+         x="23.571428"
+         id="tspan3028"
+         sodipodi:role="line" /></text>
+    <text
+       transform="matrix(5.3571749,0,0,4.9572468,22.593163,-4420.6917)"
+       sodipodi:linespacing="125%"
+       id="text3030"
+       y="1087.7046"
+       x="3.7774122"
+       style="font-size:46.92437744px;font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#003380;fill-opacity:1;stroke:#d5e5ff;stroke-width:3;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:2.99999999, 2.99999999;stroke-dashoffset:0;filter:url(#filter3829);font-family:URW Chancery L;-inkscape-font-specification:URW Chancery L Bold Italic"
+       xml:space="preserve"><tspan
+         y="1087.7046"
+         x="3.7774122"
+         id="tspan3032"
+         sodipodi:role="line">#</tspan></text>
+  </g>
+  <g
+     inkscape:label="Layer #"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-772.3622)"
+     style="display:inline">
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:URW Chancery L;-inkscape-font-specification:URW Chancery L Bold Italic"
+       x="128.57143"
+       y="315.21933"
+       id="text2985"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan2987"
+         x="128.57143"
+         y="315.21933" /></text>
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:URW Chancery L;-inkscape-font-specification:URW Chancery L Bold Italic"
+       x="23.571428"
+       y="66"
+       id="text2989"
+       sodipodi:linespacing="125%"
+       transform="translate(0,956.36218)"><tspan
+         sodipodi:role="line"
+         id="tspan2991"
+         x="23.571428"
+         y="66" /></text>
+    <text
+       xml:space="preserve"
+       style="font-size:231.05815125px;font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#002255;fill-opacity:1;stroke:none;font-family:URW Chancery L;-inkscape-font-specification:URW Chancery L Bold Italic"
+       x="44.649647"
+       y="1007.7122"
+       id="text2997"
+       sodipodi:linespacing="125%"
+       transform="scale(1.0395554,0.9619497)"><tspan
+         sodipodi:role="line"
+         id="tspan2999"
+         x="44.649647"
+         y="1007.7122">#</tspan></text>
+  </g>
+  <g
+     style="display:inline"
+     transform="translate(0,-772.3622)"
+     id="g3012"
+     inkscape:groupmode="layer"
+     inkscape:label="Display Anchors">
+    <text
+       sodipodi:linespacing="125%"
+       id="text3014"
+       y="315.21933"
+       x="128.57143"
+       style="font-size:40px;font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:URW Chancery L;-inkscape-font-specification:URW Chancery L Bold Italic"
+       xml:space="preserve"><tspan
+         y="315.21933"
+         x="128.57143"
+         id="tspan3016"
+         sodipodi:role="line" /></text>
+    <text
+       transform="translate(0,956.36218)"
+       sodipodi:linespacing="125%"
+       id="text3018"
+       y="66"
+       x="23.571428"
+       style="font-size:40px;font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:URW Chancery L;-inkscape-font-specification:URW Chancery L Bold Italic"
+       xml:space="preserve"><tspan
+         y="66"
+         x="23.571428"
+         id="tspan3020"
+         sodipodi:role="line" /></text>
+    <text
+       sodipodi:linespacing="125%"
+       id="text3027"
+       y="895.78857"
+       x="201.02036"
+       style="font-size:38px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:URW Bookman L;-inkscape-font-specification:URW Bookman L"
+       xml:space="preserve"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Courier New;-inkscape-font-specification:Courier New Bold"
+         y="895.78857"
+         x="201.02036"
+         id="tspan3029"
+         sodipodi:role="line"> Display</tspan><tspan
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Courier New;-inkscape-font-specification:Courier New Bold"
+         id="tspan3031"
+         y="943.28857"
+         x="201.02036"
+         sodipodi:role="line">#Anchors</tspan></text>
+  </g>
+</svg>
