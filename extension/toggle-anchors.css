@@ -21,19 +21,16 @@
 
     opacity: 0.7 !important;
     z-index: 2147483645 !important;
-    -webkit-transition: z-index 1ms !important;
     transition: z-index 1ms !important;
 }
 :hover > \:a\.href\: {
     opacity: 1 !important;
     z-index: 2147483646 !important;
-    -webkit-transition: z-index 2ms !important;
     transition: z-index 2ms !important;
 }
 \:a\.href\::hover {
     opacity: 1 !important;
     z-index: 2147483647 !important;
-    -webkit-transition: z-index 3ms !important;
     transition: z-index 3ms !important;
 }
 

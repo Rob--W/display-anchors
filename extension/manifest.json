@@ -19,7 +19,7 @@
         "128": "icon128.png"
     },
     "permissions": [
-        "tabs",
-        "<all_urls>"
-    ]
+        "activeTab"
+    ],
+    "minimum_chrome_version": "26"
 }

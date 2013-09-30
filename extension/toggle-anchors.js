@@ -12,8 +12,6 @@ var baseHolder = document.createElement(':a.href:');
 var baseWrappr = document.createElement('span');
 var baseAnchor = document.createElement('a');
 
-var transitionEnd = 'TransitionEnd' in window ? 'transitionend' : 'webkitTransitionEnd';
-
 baseWrappr.style.cssText =
     'position: absolute;' +
     'top: 0;';
@@ -43,7 +41,7 @@ function getAnchor(elem) {
                                            holder.webkitCreateShadowRoot();
     shadow.resetStyleInheritance = true;
 
-    holder.addEventListener(transitionEnd, function(event) {
+    holder.addEventListener('transitionend', function(event) {
         if (event.propertyName !== 'z-index') {
             return;
         }
