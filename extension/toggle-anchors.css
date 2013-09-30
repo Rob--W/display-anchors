@@ -1,0 +1,21 @@
+/* :a.href: is the tag name of my tag that holds the shadow DOM */
+\:a\.href\: {
+    position: absolute !important;
+    margin: 0 !important;
+    box-shadow: none !important;
+    border: 0 !important;
+    padding: 0 !important;
+    width: 0 !important;
+    height: 0 !important;
+    -webkit-transform: none !important;
+    transform: none !important;
+    clear: none !important;
+    float: none !important;
+
+    opacity: 0.7 !important;
+    z-index: 2147483645 !important;
+}
+\:a\.href\::hover {
+    opacity: 1 !important;
+    z-index: 2147483646 !important;
+}
