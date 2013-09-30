@@ -12,6 +12,8 @@ var baseHolder = document.createElement(':a.href:');
 var baseWrappr = document.createElement('span');
 var baseAnchor = document.createElement('a');
 
+var transitionEnd = 'TransitionEnd' in window ? 'transitionend' : 'webkitTransitionEnd';
+
 baseWrappr.style.cssText =
     'position: absolute;' +
     'top: 0;';
@@ -40,6 +42,23 @@ function getAnchor(elem) {
     var shadow = holder.createShadowRoot ? holder.createShadowRoot() :
                                            holder.webkitCreateShadowRoot();
     shadow.resetStyleInheritance = true;
+
+    holder.addEventListener(transitionEnd, function(event) {
+        if (event.propertyName !== 'z-index') {
+            return;
+        }
+        var elapsedTime = event.elapsedTime;
+        if (elapsedTime === 0.001) { // Default
+            elem.removeAttribute('a-href:hover');
+            anchor.style.outline = '';
+        } else if (elapsedTime === 0.002) { // Parent:hover
+            elem.removeAttribute('a-href:hover');
+            anchor.style.outline = 'rgba(203, 145, 67, 0.90) dashed 2px';
+        } else if (elapsedTime === 0.003) { // Anchor:hover
+            elem.setAttribute('a-href:hover', '');
+            anchor.style.outline = '';
+        }
+    });
 
     var paddingLeft = parseFloat(getComputedStyle(elem).getPropertyValue('padding-left')) || 0;
     wrappr.style.left = (elem.offsetWidth - paddingLeft) + 'px';
