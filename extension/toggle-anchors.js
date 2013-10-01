@@ -65,9 +65,10 @@ function getAnchor(elem) {
     } else {
         var paddingTop = parseFloat(currentStyle.getPropertyValue('padding-top')) || 0;
         var paddingLeft = parseFloat(currentStyle.getPropertyValue('padding-left')) || 0;
+        var borderLeft = parseFloat(currentStyle.getPropertyValue('border-left-width')) || 0;
         var wrappr = baseWrappr.cloneNode();
         wrappr.style.top = (-paddingTop) + 'px';
-        wrappr.style.left = (elem.offsetWidth - paddingLeft) + 'px';
+        wrappr.style.left = (elem.offsetWidth - paddingLeft - borderLeft) + 'px';
         wrappr.appendChild(anchor);
         shadow.appendChild(wrappr);
     }
