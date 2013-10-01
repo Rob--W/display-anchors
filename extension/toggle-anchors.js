@@ -35,7 +35,6 @@ function getAnchor(elem) {
     if (!anchorValue) return;
 
     var holder = baseHolder.cloneNode();
-    var wrappr = baseWrappr.cloneNode();
     var anchor = baseAnchor.cloneNode();
     var shadow = holder.createShadowRoot ? holder.createShadowRoot() :
                                            holder.webkitCreateShadowRoot();
@@ -58,8 +57,21 @@ function getAnchor(elem) {
         }
     });
 
-    var paddingLeft = parseFloat(getComputedStyle(elem).getPropertyValue('padding-left')) || 0;
-    wrappr.style.left = (elem.offsetWidth - paddingLeft) + 'px';
+    var currentStyle = getComputedStyle(elem);
+    var isPositioned = currentStyle.getPropertyValue('position') !== 'static'; // Neglect "inherit"
+    if (isPositioned) {
+        holder.style.setProperty('top', '0', 'important');
+        holder.style.setProperty('right', '0', 'important');
+        shadow.appendChild(anchor);
+    } else {
+        var paddingTop = parseFloat(currentStyle.getPropertyValue('padding-top')) || 0;
+        var paddingLeft = parseFloat(currentStyle.getPropertyValue('padding-left')) || 0;
+        var wrappr = baseWrappr.cloneNode();
+        wrappr.style.top = (-paddingTop) + 'px';
+        wrappr.style.left = (elem.offsetWidth - paddingLeft) + 'px';
+        wrappr.appendChild(anchor);
+        shadow.appendChild(wrappr);
+    }
 
     anchor.href = baseURI + '#' + anchorValue;
     anchor.textContent = '#' + anchorValue;
@@ -67,8 +79,6 @@ function getAnchor(elem) {
     anchor.addEventListener('dblclick', stopPropagation);
     anchor.addEventListener('mousedown', stopPropagation);
 
-    wrappr.appendChild(anchor);
-    shadow.appendChild(wrappr);
     return holder;
 }
 
