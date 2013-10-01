@@ -22,8 +22,7 @@ baseAnchor.style.cssText =
     'white-space: pre;' +
     'margin-top: -2px;' +
     'padding: 2px 4px;' +
-    'background-color: rgba(255, 255, 255, 0.9);' +
-    (baseAnchor.style.transform === '' ? '' : '-webkit-') + 'transform: none !important;'
+    'background-color: rgba(255, 255, 255, 0.9);'
     ;
 
 function stopPropagation(event) {
