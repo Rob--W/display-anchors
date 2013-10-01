@@ -19,7 +19,7 @@
     clear: none !important;
     float: none !important;
 
-    opacity: 0.7 !important;
+    opacity: 0.9 !important;
     z-index: 2147483645 !important;
     transition: z-index 1ms !important;
 }
