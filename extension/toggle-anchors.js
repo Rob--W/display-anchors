@@ -88,19 +88,35 @@ function removeAllAnchors() {
     });
 }
 
+var matchesSelector;
+['webkitM', 'm'].some(function(prefix) {
+    var name = prefix + 'atches';
+    if (name in document.documentElement) matchesSelector = name;
+    name += 'Selector';
+    if (name in document.documentElement) matchesSelector = name;
+    return matchesSelector; // If found, then truthy, and [].some() ends.
+});
+
 function addAllAnchors() {
-    var elems = document.querySelectorAll('[id],[name]');
+    var elems = (document.body || document.documentElement).querySelectorAll('[id],[name]');
+    var elem;
     var length = elems.length;
     var anchors = [];
     // First generate the elements...
     for (var i = 0; i < length; ++i) {
-        anchors.push(getAnchor(elems[i]));
+        elem = elems[i];
+        if (!elem[matchesSelector]('object *, applet *')) {
+            // Ignore <param name="..." value="..."> etc.
+            anchors[i] = getAnchor(elem);
+        }
     }
     // ... then insert them the elements
     // Not doing this causes a repaint for every element
     for (i = 0; i < length; ++i) {
-        var elem = elems[i];
-        elem.insertBefore(anchors[i], elem.firstChild);
+        if (anchors[i]) {
+            elem = elems[i];
+            elem.insertBefore(anchors[i], elem.firstChild);
+        }
     }
 }
 
