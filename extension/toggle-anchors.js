@@ -29,10 +29,10 @@ function stopPropagation(event) {
     event.stopPropagation();
 }
 
-function getAnchor(elem) {
-    var anchorValue = elem.id || elem.name;
-    if (!anchorValue) return;
-
+/**
+ * @param {string} anchorValue is the ID or name of the anchor element.
+ */
+function getAnchor(anchorValue, elem) {
     var holder = baseHolder.cloneNode();
     var anchor = baseAnchor.cloneNode();
     var shadow = holder.createShadowRoot ? holder.createShadowRoot() :
@@ -101,21 +101,28 @@ function addAllAnchors() {
     var elems = (document.body || document.documentElement).querySelectorAll('[id],[name]');
     var elem;
     var length = elems.length;
-    var anchors = [];
+    var anchors = new Array(length);
+    var parentNodes = new Array(length);
+    var nextSiblings = new Array(length);
     // First generate the elements...
     for (var i = 0; i < length; ++i) {
         elem = elems[i];
         if (!elem[matchesSelector]('object *, applet *')) {
             // Ignore <param name="..." value="..."> etc.
-            anchors[i] = getAnchor(elem);
+            var anchorValue = elem.id || elem.name;
+            if (anchorValue) {
+                // TODO: resolve elem to a different node if the tag is e.g. a table.
+                parentNodes[i] = elem;
+                nextSiblings[i] = elem.firstChild;
+                anchors[i] = getAnchor(anchorValue, elem);
+            }
         }
     }
     // ... then insert them the elements
     // Not doing this causes a repaint for every element
     for (i = 0; i < length; ++i) {
         if (anchors[i]) {
-            elem = elems[i];
-            elem.insertBefore(anchors[i], elem.firstChild);
+            parentNodes[i].insertBefore(anchors[i], nextSiblings[i]);
         }
     }
 }
