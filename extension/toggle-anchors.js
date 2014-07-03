@@ -110,8 +110,7 @@ function addAllAnchors() {
         if (!elem[matchesSelector]('object *, applet *')) {
             // Ignore <param name="..." value="..."> etc.
             var anchorValue = elem.id || elem.name;
-            if (anchorValue) {
-                // TODO: resolve elem to a different node if the tag is e.g. a table.
+            if (anchorValue && (elem = getInsertionPoint(elem))) {
                 parentNodes[i] = elem;
                 nextSiblings[i] = elem.firstChild;
                 anchors[i] = getAnchor(anchorValue, elem);
@@ -124,6 +123,24 @@ function addAllAnchors() {
         if (anchors[i]) {
             parentNodes[i].insertBefore(anchors[i], nextSiblings[i]);
         }
+    }
+}
+
+function getInsertionPoint(element) {
+    switch (element.tagName.toUpperCase()) {
+    case 'TABLE':
+    case 'THEAD':
+    case 'TBODY':
+    case 'TFOOT':
+        return element.rows[0] && element.rows[0].cells[0];
+    case 'TR':
+        return element.cells[0];
+    case 'INPUT':
+    case 'TEXTAREA':
+        // TODO: Add more replaced elements?
+        return null;
+    default:
+        return element;
     }
 }
 
