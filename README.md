@@ -25,4 +25,4 @@ not use it). This encouraged me to develop a new extension that offers the desir
 
 ## Copyright
 
-(c) 2013 Rob Wu <gwnRob@gmail.com> (https://robwu.nl/)
+(c) 2013 - 2014 Rob Wu <rob@robwu.nl> (https://robwu.nl/)
