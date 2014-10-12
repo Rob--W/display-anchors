@@ -6,7 +6,7 @@
     bottom: auto !important;
     left: auto !important;
 
-    display: block !important;
+    display: inline-block !important;
 
     margin: 0 !important;
     box-shadow: none !important;

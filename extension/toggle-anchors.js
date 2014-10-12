@@ -58,9 +58,17 @@ function getAnchor(anchorValue, elem) {
 
     var currentStyle = getComputedStyle(elem);
     var isPositioned = currentStyle.getPropertyValue('position') !== 'static'; // Neglect "inherit"
-    if (isPositioned) {
+    // Whether there is enough space at the left to at least get a reasonably visible anchor.
+    var isLeftVisible = elem.offsetLeft > 9;
+    if (isPositioned || !isLeftVisible) {
         holder.style.setProperty('top', '0', 'important');
-        holder.style.setProperty('right', '0', 'important');
+        if (isLeftVisible) {
+            holder.style.setProperty('right', '0', 'important');
+        } else {
+            holder.style.setProperty('left', '0', 'important');
+            anchor.style.left = '0';
+            anchor.style.right = 'auto';
+        }
         shadow.appendChild(anchor);
     } else {
         var paddingTop = parseFloat(currentStyle.getPropertyValue('padding-top')) || 0;

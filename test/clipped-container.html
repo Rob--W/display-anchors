@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<title>Regression test: clipped container</title>
+<style>
+.filler {
+    height: 80vh;
+}
+.clipped-container {
+    /* clipped container */
+    position: relative;
+    overflow: hidden;
+
+    /* Some offsets to make it apparent whether an element is hidden or not */
+    width: 80%;
+    margin: 0 auto;
+}
+</style>
+Open the console and check whether there are any (Assertion) errors. If you see any errors, set a breakpoint and trace back.
+<div class="filler"></div>
+<div class="clipped-container">
+    <h3><span><a id="some-anchor" name="some-anchor"></a>C. </span>Header with anchor at the left</h3>
+    <p>
+        This is a visible anchor: <em id="visible-anchor">an anchor</em>
+    </p>
+</div>
+<div class="filler"></div>
+<link rel="stylesheet" href="../extension/toggle-anchors.css">
+<script src="../extension/toggle-anchors.js"></script>
+<script>
+'use strict';
+function assertEqual(actual, expected) {
+    console.assert(actual === expected, actual + ' === ' + expected);
+}
+/**
+ * @param {HTMLUnknownElement} ahrefElement - <:a.href:> element.
+ */
+function assertAnchorVisible(ahrefElement) {
+    // When the anchor is put into the view, :a.href: must be visible.
+    ahrefElement.parentNode.scrollIntoViewIfNeeded();
+
+    var anchorNodeShadow = ahrefElement.shadowRoot || ahrefElement.webkitShadowRoot;
+    var rect = anchorNodeShadow.querySelector('a').getBoundingClientRect();
+    // +2 because somethings the calculations are a bit off.
+    var elemAtPos = document.elementFromPoint(Math.max(0, rect.left), Math.max(0, rect.top + 2));
+    assertEqual(elemAtPos, ahrefElement);
+}
+
+var anchors = document.querySelectorAll('\\:a\\.href\\:');
+// Sanity check
+assertEqual(anchors.length, 2);
+assertEqual(anchors[0].parentNode, document.getElementById('some-anchor'));
+assertEqual(anchors[1].parentNode, document.getElementById('visible-anchor'));
+
+// Assert visibility of element. If any of the following test fail, then the :a.href: > a element is not visible.
+assertAnchorVisible(anchors[0]);
+assertAnchorVisible(anchors[1]);
+
+if (!location.hash) document.body.scrollTop = 0;
+</script>
