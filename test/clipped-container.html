@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<title>Regression test: clipped container</title>
+<title>Regression tests</title>
 <style>
 .filler {
     height: 80vh;
@@ -16,11 +16,16 @@
 </style>
 Open the console and check whether there are any (Assertion) errors. If you see any errors, set a breakpoint and trace back.
 <div class="filler"></div>
+<!-- Container with overflow:hidden -->
 <div class="clipped-container">
     <h3><span><a id="some-anchor" name="some-anchor"></a>C. </span>Header with anchor at the left</h3>
     <p>
         This is a visible anchor: <em id="visible-anchor">an anchor</em>
     </p>
+</div>
+<!-- Static header -->
+<div>
+    <h3 id="static-header">Static header</h3>
 </div>
 <div class="filler"></div>
 <link rel="stylesheet" href="../extension/toggle-anchors.css">
@@ -46,13 +51,16 @@ function assertAnchorVisible(ahrefElement) {
 
 var anchors = document.querySelectorAll('\\:a\\.href\\:');
 // Sanity check
-assertEqual(anchors.length, 2);
+assertEqual(anchors.length, 3);
 assertEqual(anchors[0].parentNode, document.getElementById('some-anchor'));
 assertEqual(anchors[1].parentNode, document.getElementById('visible-anchor'));
+assertEqual(anchors[2].parentNode, document.getElementById('static-header'));
+
 
 // Assert visibility of element. If any of the following test fail, then the :a.href: > a element is not visible.
 assertAnchorVisible(anchors[0]);
 assertAnchorVisible(anchors[1]);
+assertAnchorVisible(anchors[2]);
 
 if (!location.hash) document.body.scrollTop = 0;
 </script>

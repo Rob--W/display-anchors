@@ -2,6 +2,18 @@
 /* jshint browser:true, maxlen:100 */
 'use strict';
 
+// Default placement:
+// ------------------A <-- element with id or name attribute ("anchor")
+//           #fragment <-- aligned at the right, at the same line as the anchor.
+//
+// When an anchor is too small (smaller than MINIMUM_REQ_WIDTH_PX), then the
+// element is aligned at the left instead of at the right. This is to make sure
+// that at least a part of the anchor is visible, even if the container clips
+// its content using overflow:hidden.
+//                  A         <!-- anchor
+//                  #fragment <!-- left-aligned link.
+var MINIMUM_REQ_WIDTH_PX = 16;
+
 // Prefer "#anchor", and only use /pathname?query#anchor if base-href is set.
 // #anchor is preferred to deal correctly with pages that use the history API to rewrite the URL.
 var baseURI = document.querySelector('base[href]') ? location.pathname + location.search : '';
@@ -58,11 +70,9 @@ function getAnchor(anchorValue, elem) {
 
     var currentStyle = getComputedStyle(elem);
     var isPositioned = currentStyle.getPropertyValue('position') !== 'static'; // Neglect "inherit"
-    // Whether there is enough space at the left to at least get a reasonably visible anchor.
-    var isLeftVisible = elem.offsetLeft > 9;
-    if (isPositioned || !isLeftVisible) {
+    if (isPositioned) {
         holder.style.setProperty('top', '0', 'important');
-        if (isLeftVisible) {
+        if (elem.offsetLeft > MINIMUM_REQ_WIDTH_PX) {
             holder.style.setProperty('right', '0', 'important');
         } else {
             holder.style.setProperty('left', '0', 'important');
@@ -71,14 +81,21 @@ function getAnchor(anchorValue, elem) {
         }
         shadow.appendChild(anchor);
     } else {
-        var paddingTop = parseFloat(currentStyle.getPropertyValue('padding-top')) || 0;
         var paddingLeft = parseFloat(currentStyle.getPropertyValue('padding-left')) || 0;
         var borderLeft = parseFloat(currentStyle.getPropertyValue('border-left-width')) || 0;
-        var wrappr = baseWrappr.cloneNode();
-        wrappr.style.top = (-paddingTop) + 'px';
-        wrappr.style.left = (elem.offsetWidth - paddingLeft - borderLeft) + 'px';
-        wrappr.appendChild(anchor);
-        shadow.appendChild(wrappr);
+        var visibleHorizontalSpace = elem.offsetWidth - paddingLeft - borderLeft;
+        if (visibleHorizontalSpace < MINIMUM_REQ_WIDTH_PX) {
+            anchor.style.left = '0';
+            anchor.style.right = 'auto';
+            shadow.appendChild(anchor);
+        } else {
+            var wrappr = baseWrappr.cloneNode();
+            var paddingTop = parseFloat(currentStyle.getPropertyValue('padding-top')) || 0;
+            wrappr.style.top = (-paddingTop) + 'px';
+            wrappr.style.left = (elem.offsetWidth - paddingLeft - borderLeft) + 'px';
+            wrappr.appendChild(anchor);
+            shadow.appendChild(wrappr);
+        }
     }
 
     anchor.href = baseURI + '#' + anchorValue;
