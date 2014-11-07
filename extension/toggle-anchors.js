@@ -83,7 +83,7 @@ function getAnchor(anchorValue, elem) {
     } else {
         var paddingLeft = parseFloat(currentStyle.getPropertyValue('padding-left')) || 0;
         var borderLeft = parseFloat(currentStyle.getPropertyValue('border-left-width')) || 0;
-        var visibleHorizontalSpace = elem.offsetWidth - paddingLeft - borderLeft;
+        var visibleHorizontalSpace = elem.offsetLeft + elem.offsetWidth - paddingLeft - borderLeft;
         if (visibleHorizontalSpace < MINIMUM_REQ_WIDTH_PX) {
             anchor.style.left = '0';
             anchor.style.right = 'auto';
