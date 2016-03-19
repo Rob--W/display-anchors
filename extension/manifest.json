@@ -21,5 +21,8 @@
     "permissions": [
         "activeTab"
     ],
+    "commands": {
+        "_execute_browser_action": {}
+    },
     "minimum_chrome_version": "26"
 }

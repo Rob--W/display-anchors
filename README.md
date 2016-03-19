@@ -14,6 +14,15 @@ all (invisible) anchors in a page, to make it easier to link to a specific part 
 - Click on the toolbar button to remove all markers.
 - The extension consumes no memory until it's actually used (using an event page).
 
+## Customization
+
+### Shortcut
+
+1. Visit `chrome://extensions/configureCommands`
+2. Click on the input field at "Display #Anchors" (by default, it is "Not set").
+3. Press the keys for the desired shortcut (e.g. Ctrl + Shift + L).
+4. From now on, you can use the chosen shortcut to toggle anchors.
+
 ## History
 Before creating this extension, I've been using the "Display Anchors" feature of Chris Pederick's
 ["Web Developer" extension for Chrome](https://chrome.google.com/webstore/detail/bfbameneiokkgbdmiekhjnmfkcnldhhm).
