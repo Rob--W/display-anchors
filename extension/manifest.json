@@ -19,8 +19,15 @@
         "128": "icon128.png"
     },
     "permissions": [
+        "storage",
+        "contextMenus",
         "activeTab"
     ],
+    "options_ui": {
+        "page": "options.html",
+        "chrome_style": true
+    },
+    "options_page": "options.html",
     "commands": {
         "_execute_browser_action": {}
     },

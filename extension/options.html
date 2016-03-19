@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+body {
+    margin: 2em 3em;
+}
+.pref-box {
+    display: block;
+    margin: 1em 0;;
+}
+label, input {
+    line-height: 150%;
+}
+footer {
+    margin-top: 1rem;
+    border-top: 1px solid #CCC;
+    padding: 1rem 0;
+    text-align: center;
+}
+</style>
+</head>
+<body>
+<form id="anchorTextForm">
+Text to be shown when an anchor is displayed.
+<div class="pref-box">
+    <label>
+        <input type="radio" name="anchorText" id="useAnchorText">
+        The value of the anchor, e.g. <a href="#anchor">#anchor</a>.
+    </label>
+</div>
+<div class="pref-box">
+    <label>
+        <input type="radio" name="anchorText" id="useCustomText">
+        Use custom text:
+    </label>
+    <input type="text" id="customTextValue">
+</div>
+<input type="submit" value="Save">
+</form>
+<footer>
+    &copy; 2013 - 2016 Rob Wu &lt;rob@robwu.nl&gt;
+    &bull; <a href="https://github.com/Rob--W/display-anchors">Source code on Github</a>
+    &bull; <a href="https://chrome.google.com/webstore/detail/display-anchors/poahndpaaanbpbeafbkploiobpiiieko">Chrome Web Store listing</a>
+</footer>
+<script src="options.js"></script>
+</body>
+</html>

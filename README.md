@@ -23,6 +23,15 @@ all (invisible) anchors in a page, to make it easier to link to a specific part 
 3. Press the keys for the desired shortcut (e.g. Ctrl + Shift + L).
 4. From now on, you can use the chosen shortcut to toggle anchors.
 
+### Custom anchor text
+By default, the anchor is used as a label for the link. You may also opt in for a fixed value, as follows:
+
+1. Right-click on the "#" button in the toolbar.
+2. Toggle the "Show full #anchor text" menu item.
+3. If the menu item is unchecked, then a paragraph symbol ("¶") is used.
+
+If you prefer a different label, visit the options page, set a different value and save the changes.
+
 ## History
 Before creating this extension, I've been using the "Display Anchors" feature of Chris Pederick's
 ["Web Developer" extension for Chrome](https://chrome.google.com/webstore/detail/bfbameneiokkgbdmiekhjnmfkcnldhhm).
@@ -34,4 +43,4 @@ not use it). This encouraged me to develop a new extension that offers the desir
 
 ## Copyright
 
-(c) 2013 - 2014 Rob Wu <rob@robwu.nl> (https://robwu.nl/)
+(c) 2013 - 2016 Rob Wu <rob@robwu.nl> (https://robwu.nl/)

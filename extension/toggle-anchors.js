@@ -1,5 +1,6 @@
 (function() {
 /* jshint browser:true, maxlen:100 */
+/* globals chrome */
 'use strict';
 
 // Default placement:
@@ -43,8 +44,10 @@ function stopPropagation(event) {
 
 /**
  * @param {string} anchorValue is the ID or name of the anchor element.
+ * @param {Element} elem - the element to which the ID or name belongs.
+ * @param {object} options - user preferences.
  */
-function getAnchor(anchorValue, elem) {
+function getAnchor(anchorValue, elem, options) {
     var holder = baseHolder.cloneNode();
     var anchor = baseAnchor.cloneNode();
     var shadow = holder.createShadowRoot ? holder.createShadowRoot() :
@@ -99,7 +102,7 @@ function getAnchor(anchorValue, elem) {
     }
 
     anchor.href = baseURI + '#' + anchorValue;
-    anchor.textContent = '#' + anchorValue;
+    anchor.textContent = options.useAnchorText ? '#' + anchorValue : options.customTextValue;
     anchor.addEventListener('click', stopPropagation);
     anchor.addEventListener('dblclick', stopPropagation);
     anchor.addEventListener('mousedown', stopPropagation);
@@ -122,7 +125,10 @@ var matchesSelector;
     return matchesSelector; // If found, then truthy, and [].some() ends.
 });
 
-function addAllAnchors() {
+/**
+ * @param {object} options - user preferences.
+ */
+function addAllAnchors(options) {
     var elems = (document.body || document.documentElement).querySelectorAll('[id],[name]');
     var elem;
     var length = elems.length;
@@ -138,7 +144,7 @@ function addAllAnchors() {
             if (anchorValue && (elem = getInsertionPoint(elem))) {
                 parentNodes[i] = elem;
                 nextSiblings[i] = elem.firstChild;
-                anchors[i] = getAnchor(anchorValue, elem);
+                anchors[i] = getAnchor(anchorValue, elem, options);
             }
         }
     }
@@ -173,7 +179,14 @@ function getInsertionPoint(element) {
 // Content script is programatically activated. So, do something (toggle):
 removeAllAnchors();
 if (!window.hasShown) {
-    addAllAnchors();
+    var storageArea = chrome.storage.sync || chrome.storage.local;
+    // Keep defaults in sync with background.js and options.js
+    storageArea.get({
+        useAnchorText: true,
+        customTextValue: '\xb6', // paragraph symbol.
+    }, function(items) {
+        addAllAnchors(items || {});
+    });
 }
 window.hasShown = !window.hasShown;
 
