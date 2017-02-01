@@ -28,8 +28,14 @@ chrome.contextMenus.onClicked.addListener(function(info) {
         });
     }
 });
-chrome.runtime.onInstalled.addListener(getPrefsAndUpdateMenu);
-chrome.runtime.onStartup.addListener(getPrefsAndUpdateMenu);
+if (typeof browser === 'object') {
+    // Firefox does not support event pages, and context menu items must be
+    // registered whenever the background page loads.
+    getPrefsAndUpdateMenu();
+} else {
+    chrome.runtime.onInstalled.addListener(getPrefsAndUpdateMenu);
+    chrome.runtime.onStartup.addListener(getPrefsAndUpdateMenu);
+}
 chrome.storage.onChanged.addListener(function(changes) {
     if (changes.useAnchorText) {
         updateMenu(changes.useAnchorText.newValue);
