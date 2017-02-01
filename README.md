@@ -19,7 +19,7 @@ all (invisible) anchors in a page, to make it easier to link to a specific part 
 ### Shortcut
 
 1. Visit `chrome://extensions/configureCommands`
-2. Click on the input field at "Display #Anchors" (by default, it is "Not set").
+2. Click on the input field at "Display #Anchors" (by default, it is "Alt + Shift + A").
 3. Press the keys for the desired shortcut (e.g. Ctrl + Shift + L).
 4. From now on, you can use the chosen shortcut to toggle anchors.
 
