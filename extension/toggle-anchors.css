@@ -1,5 +1,6 @@
 /* :a.href: is the tag name of my tag that holds the shadow DOM */
 \:a\.href\: {
+    all: initial !important;
     position: absolute !important;
     top: auto !important;
     right: auto !important;
@@ -14,7 +15,6 @@
     padding: 0 !important;
     width: 0 !important;
     height: 0 !important;
-    -webkit-transform: none !important;
     transform: none !important;
     clear: none !important;
     float: none !important;
@@ -22,6 +22,10 @@
     opacity: 0.9 !important;
     z-index: 2147483645 !important;
     transition: z-index 1ms !important;
+
+    /* allow some stylistic properties to inherit */
+    font-size: inherit !important;
+    font-weight: inherit !important;
 }
 :hover > \:a\.href\: {
     opacity: 1 !important;

@@ -15,6 +15,15 @@
 }
 </style>
 Open the console and check whether there are any (Assertion) errors. If you see any errors, set a breakpoint and trace back.
+<br>
+Different code paths are taken depending on the available features.<br>
+<form>
+<a href="?">Keep all</a> &bull;
+<a href="?attachShadow">Disable attachShadow</a> &bull;
+<a href="?createShadowRoot">Disable createShadowRoot</a> &bull;
+<a href="?attachShadow,createShadowRoot">Disable all</a> &bull;
+</form>
+
 <div class="filler"></div>
 <!-- Container with overflow:hidden -->
 <div class="clipped-container">
@@ -36,6 +45,15 @@ Open the console and check whether there are any (Assertion) errors. If you see 
 </div>
 
 <div class="filler"></div>
+<script>
+if (location.search.indexOf('attachShadow') > 0) {
+    Element.prototype.attachShadow = null;
+}
+if (location.search.indexOf('createShadowRoot') > 0) {
+    Element.prototype.createShadowRoot = null;
+    Element.prototype.webkitCreateShadowRoot = null;
+}
+</script>
 <link rel="stylesheet" href="../extension/toggle-anchors.css">
 <script src="../extension/toggle-anchors.js"></script>
 <script>
@@ -45,16 +63,48 @@ function assertEqual(actual, expected) {
 }
 /**
  * @param {HTMLUnknownElement} ahrefElement - <:a.href:> element.
+ * @returns {HTMLElement|undefined} The element hosting a shadow root, if any.
+ */
+function getShadowHost(ahrefElement) {
+    if (ahrefElement.attachShadow) {
+        // When attachShadow is used, we attach to a dummy child element instead.
+        assertEqual(ahrefElement.firstChild.tagName, 'SPAN');
+        return ahrefElement.firstChild;
+    }
+    if (ahrefElement.createShadowRoot || ahrefElement.webkitCreateShadowRoot) {
+        return ahrefElement;
+    }
+}
+/**
+ * @param {HTMLUnknownElement} ahrefElement - <:a.href:> element.
+ * @returns {ShadowRoot|HTMLUnknownElement} The element in which the anchor is
+ *  inserted. This is normally a shadow root, but if shadow DOM is unsupported,
+ *  then it is the given element (as a fallback).
+ */
+function getShadowRoot(ahrefElement) {
+    var shadowHost = getShadowHost(ahrefElement);
+    if (!shadowHost) {
+        // When shadow DOM is unsupported, we fall back to using the element itself.
+        return ahrefElement;
+    }
+    return shadowHost.shadowRoot || shadowHost.webkitShadowRoot;
+}
+/**
+ * @param {HTMLUnknownElement} ahrefElement - <:a.href:> element.
  */
 function assertAnchorVisible(ahrefElement) {
     // When the anchor is put into the view, :a.href: must be visible.
     ahrefElement.parentNode.scrollIntoViewIfNeeded();
 
-    var anchorNodeShadow = ahrefElement.shadowRoot || ahrefElement.webkitShadowRoot;
-    var rect = anchorNodeShadow.querySelector('a').getBoundingClientRect();
+    var anchorNodeShadow = getShadowRoot(ahrefElement);
+    var aInShadow = anchorNodeShadow.querySelector('a');
+    var rect = aInShadow.getBoundingClientRect();
     // +2 because somethings the calculations are a bit off.
     var elemAtPos = document.elementFromPoint(Math.max(0, rect.left), Math.max(0, rect.top + 2));
-    assertEqual(elemAtPos, ahrefElement);
+    // When shadow DOM is supported, using elementFromPoint will return the element to which
+    // the shadow root is attached instead of the shadow content.
+    // When shadow DOM is unsupported, the anchor itself is returned.
+    assertEqual(elemAtPos, getShadowHost(ahrefElement) || aInShadow);
 }
 /**
  * @param {Element} elem - Parent node of <:a.href:> element
@@ -62,7 +112,7 @@ function assertAnchorVisible(ahrefElement) {
 function assertAnchorIsAtLeft(elem) {
     var elemLeftOffset = elem.getBoundingClientRect().left;
     var ahrefElement = elem.querySelector('\\:a\\.href\\:');
-    var anchorNodeShadow = ahrefElement.shadowRoot || ahrefElement.webkitShadowRoot;
+    var anchorNodeShadow = getShadowRoot(ahrefElement);
     var shadowLeftOffset = anchorNodeShadow.querySelector('a').getBoundingClientRect().left;
 
     console.assert(shadowLeftOffset < elemLeftOffset,

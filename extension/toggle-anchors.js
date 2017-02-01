@@ -42,6 +42,47 @@ function stopPropagation(event) {
     event.stopPropagation();
 }
 
+var getShadowRoot;
+if (baseHolder.attachShadow) {
+    // Chrome 53+
+    getShadowRoot = function(holder) {
+        // attachShadow is only allowed for whitelisted elements.
+        // https://github.com/w3c/webcomponents/issues/110
+        var shadowHost = document.createElement('span');
+        shadowHost.style.all = 'inherit';
+        holder.appendChild(shadowHost);
+        return shadowHost.attachShadow({ mode: 'open' });
+    };
+} else if (baseHolder.createShadowRoot) {
+    // Chrome 35+
+    if ('all' in baseHolder.style) {
+        // Chrome 37+ supports the "all" CSS keyword.
+        getShadowRoot = function(holder) {
+            return holder.createShadowRoot();
+        };
+    } else {
+        getShadowRoot = function(holder) {
+            var shadowRoot = holder.createShadowRoot();
+            shadowRoot.resetStyleInheritance = true;
+            return shadowRoot;
+        };
+    }
+} else if (baseHolder.webkitCreateShadowRoot) {
+    // Chrome 33+
+    getShadowRoot = function(holder) {
+        var shadowRoot = holder.webkitCreateShadowRoot();
+        shadowRoot.resetStyleInheritance = true;
+        return shadowRoot;
+    };
+} else {
+    // Firefox, etc.
+    getShadowRoot = function(holder) {
+        return holder;
+    };
+    // There is no style isolation through shadow DOM, need manual work...
+    // TODO: Implement style isolation.
+}
+
 /**
  * @param {string} anchorValue is the ID or name of the anchor element.
  * @param {Element} elem - the element to which the ID or name belongs.
@@ -50,9 +91,7 @@ function stopPropagation(event) {
 function getAnchor(anchorValue, elem, options) {
     var holder = baseHolder.cloneNode();
     var anchor = baseAnchor.cloneNode();
-    var shadow = holder.createShadowRoot ? holder.createShadowRoot() :
-                                           holder.webkitCreateShadowRoot();
-    shadow.resetStyleInheritance = true;
+    var shadow = getShadowRoot(holder);
 
     holder.addEventListener('transitionend', function(event) {
         if (event.propertyName !== 'z-index') {
