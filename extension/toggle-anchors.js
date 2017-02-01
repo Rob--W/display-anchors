@@ -223,10 +223,18 @@ if (!window.hasShown) {
         customTextValue: '\xb6', // paragraph symbol.
     };
     if (typeof chrome === 'object' && chrome && chrome.storage) {
+        // storage-sync-polyfill.js is not loaded, so storage.sync may be unset,
         var storageArea = chrome.storage.sync || chrome.storage.local;
         // Keep defaults in sync with background.js and options.js
         storageArea.get(defaultConfig, function(items) {
-            addAllAnchors(items || defaultConfig);
+            if (items) {
+                addAllAnchors(items);
+            } else {
+                // Fall back from storage.sync to storage.local.
+                chrome.storage.local.get(defaultConfig, function(items) {
+                    addAllAnchors(items || defaultConfig);
+                });
+            }
         });
     } else {
         addAllAnchors(defaultConfig);

@@ -6,11 +6,9 @@ var useAnchorText = document.getElementById('useAnchorText');
 var useCustomText = document.getElementById('useCustomText');
 var customTextValue = document.getElementById('customTextValue');
 
-var storageArea = chrome.storage.sync || chrome.storage.local;
-
 document.getElementById('anchorTextForm').onsubmit = function(event) {
     event.preventDefault();
-    storageArea.set({
+    chrome.storage.sync.set({
         useAnchorText: useAnchorText.checked,
         customTextValue: customTextValue.value,
     });
@@ -20,7 +18,7 @@ customTextValue.onfocus = function() {
 };
 
 // Keep defaults in sync with background.js and toggle-anchors.js
-storageArea.get({
+chrome.storage.sync.get({
     useAnchorText: true,
     customTextValue: '\xb6', // paragraph symbol.
 }, function(items) {

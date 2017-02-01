@@ -22,8 +22,7 @@ chrome.browserAction.onClicked.addListener(function(tab) {
 });
 chrome.contextMenus.onClicked.addListener(function(info) {
     if (info.id === CONTEXTMENU_ID_USE_ANCHOR_TEXT) {
-        var storageArea = chrome.storage.sync || chrome.storage.local;
-        storageArea.set({
+        chrome.storage.sync.set({
             useAnchorText: info.checked,
         });
     }
@@ -43,9 +42,8 @@ chrome.storage.onChanged.addListener(function(changes) {
 });
 
 function getPrefsAndUpdateMenu() {
-    var storageArea = chrome.storage.sync || chrome.storage.local;
     // Keep defaults in sync with toggle-anchors.js and options.js
-    storageArea.get({
+    chrome.storage.sync.get({
         useAnchorText: true,
     }, function(items) {
         updateMenu(items.useAnchorText);
