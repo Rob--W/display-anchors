@@ -27,9 +27,16 @@
         "page": "options.html",
         "chrome_style": true
     },
-    "options_page": "options.html",
     "commands": {
-        "_execute_browser_action": {}
+        "_execute_browser_action": {
+            "suggested_key": {
+                "default": "Alt+Shift+A"
+            }
+        }
     },
-    "minimum_chrome_version": "26"
+    "applications": {
+        "gecko": {
+            "id": "display-anchors@robwu.nl"
+        }
+    }
 }
