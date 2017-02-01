@@ -90,11 +90,21 @@ function getShadowRoot(ahrefElement) {
     return shadowHost.shadowRoot || shadowHost.webkitShadowRoot;
 }
 /**
+ * Make sure that the element is shown in the viewport.
+ * @param {HTMLElement} elem
+ **/
+function scrollIntoViewIfNeeded(elem) {
+    var rect = elem.getBoundingClientRect();
+    if (rect.bottom > window.innerHeight || rect.top < 0) {
+        elem.scrollIntoView();
+    }
+}
+/**
  * @param {HTMLUnknownElement} ahrefElement - <:a.href:> element.
  */
 function assertAnchorVisible(ahrefElement) {
     // When the anchor is put into the view, :a.href: must be visible.
-    ahrefElement.parentNode.scrollIntoViewIfNeeded();
+    scrollIntoViewIfNeeded(ahrefElement.parentNode);
 
     var anchorNodeShadow = getShadowRoot(ahrefElement);
     var aInShadow = anchorNodeShadow.querySelector('a');
@@ -138,5 +148,5 @@ assertAnchorVisible(anchors[3]);
 // Anchor must be displayed at the left of the list item.
 assertAnchorIsAtLeft(document.getElementById('before-li'));
 
-if (!location.hash) document.body.scrollTop = 0;
+if (!location.hash) document.body.scrollTop = document.documentElement.scrollTop = 0;
 </script>
