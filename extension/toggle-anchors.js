@@ -179,14 +179,19 @@ function getInsertionPoint(element) {
 // Content script is programatically activated. So, do something (toggle):
 removeAllAnchors();
 if (!window.hasShown) {
-    var storageArea = chrome.storage.sync || chrome.storage.local;
-    // Keep defaults in sync with background.js and options.js
-    storageArea.get({
+    var defaultConfig = {
         useAnchorText: true,
         customTextValue: '\xb6', // paragraph symbol.
-    }, function(items) {
-        addAllAnchors(items || {});
-    });
+    };
+    if (typeof chrome === 'object' && chrome && chrome.storage) {
+        var storageArea = chrome.storage.sync || chrome.storage.local;
+        // Keep defaults in sync with background.js and options.js
+        storageArea.get(defaultConfig, function(items) {
+            addAllAnchors(items || defaultConfig);
+        });
+    } else {
+        addAllAnchors(defaultConfig);
+    }
 }
 window.hasShown = !window.hasShown;
 
