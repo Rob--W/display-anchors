@@ -15,6 +15,19 @@
 //                  #fragment <!-- left-aligned link.
 var MINIMUM_REQ_WIDTH_PX = 16;
 
+// For some elements, it does not make sense to add an anchor.
+var SELECTOR_ELEMENTS_WITHOUT_ANCHOR =
+    // Embedded content
+    'audio,applet,canvas,embed,iframe,img,math,object,svg,video,' +
+    // Some interactive content where <a> as a child does not make sense.
+    // Although e.g. nested <a> elements are not allowed, Firefox and Chrome
+    // appears to render them just fine, with the deepest <a> being clickable.
+    'input,keygen,select,textarea,' +
+    // Empty elements which may be used in a special way.
+    'col,meta,' +
+    // Elements whose content have a special meaning.
+    'noframes,noscript,script,style,template';
+
 // Prefer "#anchor", and only use /pathname?query#anchor if base-href is set.
 // #anchor is preferred to deal correctly with pages that use the history API to rewrite the URL.
 var baseURI = document.querySelector('base[href]') ? location.pathname + location.search : '';
@@ -169,6 +182,20 @@ var matchesSelector;
     return matchesSelector; // If found, then truthy, and [].some() ends.
 });
 
+var closest = function(element, selector) {
+    return element && element.closest(selector);
+};
+if (!baseHolder.closest) {
+    closest = function(element, selector) {
+        while (element) {
+            if (element[matchesSelector](selector)) {
+                return element;
+            }
+            element = element.parentElement;
+        }
+    };
+}
+
 /**
  * @param {object} options - user preferences.
  */
@@ -182,7 +209,7 @@ function addAllAnchors(options) {
     // First generate the elements...
     for (var i = 0; i < length; ++i) {
         elem = elems[i];
-        if (!elem[matchesSelector]('object *, applet *')) {
+        if (!closest(elem, SELECTOR_ELEMENTS_WITHOUT_ANCHOR)) {
             // Ignore <param name="..." value="..."> etc.
             var anchorValue = elem.id || elem.name;
             if (anchorValue && (elem = getInsertionPoint(elem))) {
@@ -210,10 +237,6 @@ function getInsertionPoint(element) {
         return element.rows[0] && element.rows[0].cells[0];
     case 'TR':
         return element.cells[0];
-    case 'INPUT':
-    case 'TEXTAREA':
-        // TODO: Add more replaced elements?
-        return null;
     default:
         return element;
     }
