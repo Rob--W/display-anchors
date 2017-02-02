@@ -4,6 +4,7 @@
 all (invisible) anchors in a page, to make it easier to link to a specific part of a webpage.
 
 - Chrome Web store: https://chrome.google.com/webstore/detail/display-anchors/poahndpaaanbpbeafbkploiobpiiieko
+- Firefox: https://addons.mozilla.org/firefox/addon/display-_anchors
 
 ## Features
 
@@ -43,4 +44,4 @@ not use it). This encouraged me to develop a new extension that offers the desir
 
 ## Copyright
 
-(c) 2013 - 2016 Rob Wu <rob@robwu.nl> (https://robwu.nl/)
+(c) 2013 - 2017 Rob Wu <rob@robwu.nl> (https://robwu.nl/)
