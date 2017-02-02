@@ -101,14 +101,14 @@ function getAnchor(anchorValue, elem, options) {
         if (event.propertyName !== 'z-index') {
             return;
         }
-        var elapsedTime = event.elapsedTime;
-        if (elapsedTime === 0.001) { // Default
+        var elapsedTime = Math.round(event.elapsedTime * 1000);
+        if (elapsedTime === 1) { // Default
             elem.removeAttribute('a-href:hover');
             anchor.style.setProperty('outline', '', 'important');
-        } else if (elapsedTime === 0.002) { // Parent:hover
+        } else if (elapsedTime === 2) { // Parent:hover
             elem.removeAttribute('a-href:hover');
             anchor.style.setProperty('outline', 'rgba(203, 145, 67, 0.90) dashed 2px', 'important');
-        } else if (elapsedTime === 0.003) { // Anchor:hover
+        } else if (elapsedTime === 3) { // Anchor:hover
             elem.setAttribute('a-href:hover', '');
             anchor.style.setProperty('outline', '', 'important');
         }
