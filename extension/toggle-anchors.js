@@ -49,7 +49,7 @@ if (baseHolder.attachShadow) {
         // attachShadow is only allowed for whitelisted elements.
         // https://github.com/w3c/webcomponents/issues/110
         var shadowHost = document.createElement('span');
-        shadowHost.style.all = 'inherit';
+        shadowHost.style.setProperty('all', 'inherit', 'important');
         holder.appendChild(shadowHost);
         return shadowHost.attachShadow({ mode: 'open' });
     };
@@ -80,7 +80,11 @@ if (baseHolder.attachShadow) {
         return holder;
     };
     // There is no style isolation through shadow DOM, need manual work...
-    // TODO: Implement style isolation.
+    [baseWrappr, baseAnchor].forEach(function(baseNode) {
+        baseNode.className = 'display-anchors-style-reset';
+        baseNode.style.cssText =
+            baseNode.style.cssText.replace(/;/g, '!important;');
+    });
 }
 
 /**
@@ -100,13 +104,13 @@ function getAnchor(anchorValue, elem, options) {
         var elapsedTime = event.elapsedTime;
         if (elapsedTime === 0.001) { // Default
             elem.removeAttribute('a-href:hover');
-            anchor.style.outline = '';
+            anchor.style.setProperty('outline', '', 'important');
         } else if (elapsedTime === 0.002) { // Parent:hover
             elem.removeAttribute('a-href:hover');
-            anchor.style.outline = 'rgba(203, 145, 67, 0.90) dashed 2px';
+            anchor.style.setProperty('outline', 'rgba(203, 145, 67, 0.90) dashed 2px', 'important');
         } else if (elapsedTime === 0.003) { // Anchor:hover
             elem.setAttribute('a-href:hover', '');
-            anchor.style.outline = '';
+            anchor.style.setProperty('outline', '', 'important');
         }
     });
 
@@ -118,8 +122,8 @@ function getAnchor(anchorValue, elem, options) {
             holder.style.setProperty('right', '0', 'important');
         } else {
             holder.style.setProperty('left', '0', 'important');
-            anchor.style.left = '0';
-            anchor.style.right = 'auto';
+            anchor.style.setProperty('left', '0', 'important');
+            anchor.style.setProperty('right', 'auto', 'important');
         }
         shadow.appendChild(anchor);
     } else {
@@ -127,14 +131,15 @@ function getAnchor(anchorValue, elem, options) {
         var borderLeft = parseFloat(currentStyle.getPropertyValue('border-left-width')) || 0;
         var visibleHorizontalSpace = elem.offsetLeft + elem.offsetWidth - paddingLeft - borderLeft;
         if (visibleHorizontalSpace < MINIMUM_REQ_WIDTH_PX) {
-            anchor.style.left = '0';
-            anchor.style.right = 'auto';
+            anchor.style.setProperty('left', '0', 'important');
+            anchor.style.setProperty('right', 'auto', 'important');
             shadow.appendChild(anchor);
         } else {
             var wrappr = baseWrappr.cloneNode();
             var paddingTop = parseFloat(currentStyle.getPropertyValue('padding-top')) || 0;
-            wrappr.style.top = (-paddingTop) + 'px';
-            wrappr.style.left = (elem.offsetWidth - paddingLeft - borderLeft) + 'px';
+            wrappr.style.setProperty('top', (-paddingTop) + 'px', 'important');
+            wrappr.style.setProperty(
+                'left', (elem.offsetWidth - paddingLeft - borderLeft) + 'px', 'important');
             wrappr.appendChild(anchor);
             shadow.appendChild(wrappr);
         }

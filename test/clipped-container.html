@@ -44,6 +44,19 @@ Different code paths are taken depending on the available features.<br>
     </ul>
 </div>
 
+<!-- Page styles with aggressive CSS selectors -->
+<div id="high-specificity-container" class="a b c d e f g h">
+The "content" in the next heading will be transformed<br>
+<h3 id="off-screen" style="transform:none;color:grey;display:block;">The <em>content</em> is off-screen</h3>
+</div>
+<style>
+#high-specificity-container.a.b.c.d.e.f.g.h * {
+    display: inline-block;
+    color: green;
+    transform: translate(-100vw, -100vh);
+}
+</style>
+
 <div class="filler"></div>
 <script>
 if (location.search.indexOf('attachShadow') > 0) {
@@ -132,11 +145,13 @@ function assertAnchorIsAtLeft(elem) {
 
 var anchors = document.querySelectorAll('\\:a\\.href\\:');
 // Sanity check
-assertEqual(anchors.length, 4);
+assertEqual(anchors.length, 6);
 assertEqual(anchors[0].parentNode, document.getElementById('some-anchor'));
 assertEqual(anchors[1].parentNode, document.getElementById('visible-anchor'));
 assertEqual(anchors[2].parentNode, document.getElementById('static-header'));
 assertEqual(anchors[3].parentNode, document.getElementById('before-li'));
+assertEqual(anchors[4].parentNode, document.getElementById('high-specificity-container'));
+assertEqual(anchors[5].parentNode, document.getElementById('off-screen'));
 
 
 // Assert visibility of element. If any of the following test fail, then the :a.href: > a element is not visible.
@@ -144,6 +159,8 @@ assertAnchorVisible(anchors[0]);
 assertAnchorVisible(anchors[1]);
 assertAnchorVisible(anchors[2]);
 assertAnchorVisible(anchors[3]);
+assertAnchorVisible(anchors[4]);
+assertAnchorVisible(anchors[5]);
 
 // Anchor must be displayed at the left of the list item.
 assertAnchorIsAtLeft(document.getElementById('before-li'));
