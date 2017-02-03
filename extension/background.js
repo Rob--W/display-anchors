@@ -3,7 +3,10 @@
 var CONTEXTMENU_ID_USE_ANCHOR_TEXT = 'contextMenus.useAnchorText';
 
 chrome.browserAction.onClicked.addListener(function(tab) {
-    chrome.tabs.executeScript(tab.id, {
+    toggleAnchors(tab.id);
+});
+function toggleAnchors(tabId) {
+    chrome.tabs.executeScript(tabId, {
         file: 'toggle-anchors.js',
         allFrames: true
     }, function(result) {
@@ -14,12 +17,12 @@ chrome.browserAction.onClicked.addListener(function(tab) {
         if (!result || result.indexOf(true) === -1) {
             return;
         }
-        chrome.tabs.insertCSS(tab.id, {
+        chrome.tabs.insertCSS(tabId, {
             file: 'toggle-anchors.css',
             allFrames: true
         });
     });
-});
+}
 chrome.contextMenus.onClicked.addListener(function(info) {
     if (info.id === CONTEXTMENU_ID_USE_ANCHOR_TEXT) {
         chrome.storage.sync.set({
@@ -31,6 +34,11 @@ if (typeof browser === 'object') {
     // Firefox does not support event pages, and context menu items must be
     // registered whenever the background page loads.
     getPrefsAndUpdateMenu();
+    chrome.commands.onCommand.addListener(function(command) {
+        if (command === '_execute_browser_action') { // Firefox 51 and earlier.
+            toggleAnchors(null);
+        }
+    });
 } else {
     chrome.runtime.onInstalled.addListener(getPrefsAndUpdateMenu);
     chrome.runtime.onStartup.addListener(getPrefsAndUpdateMenu);
