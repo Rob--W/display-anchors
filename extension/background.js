@@ -1,4 +1,4 @@
-/* globals chrome, alert */
+/* globals chrome, console */
 'use strict';
 var CONTEXTMENU_ID_USE_ANCHOR_TEXT = 'contextMenus.useAnchorText';
 
@@ -11,7 +11,13 @@ function toggleAnchors(tabId) {
         allFrames: true
     }, function(result) {
         if (chrome.runtime.lastError) {
-            alert(chrome.runtime.lastError.message);
+            console.error('executeScript failed:' + chrome.runtime.lastError.message);
+            chrome.notifications.create('informative-message', {
+                type: 'basic',
+                iconUrl: chrome.runtime.getURL('icon128.png'),
+                title: 'Display #Anchors failed',
+                message: 'Cannot read links in the current tab (access denied).',
+            });
             return;
         }
         if (!result || result.indexOf(true) === -1) {
@@ -47,6 +53,9 @@ chrome.storage.onChanged.addListener(function(changes) {
     if (changes.useAnchorText) {
         updateMenu(changes.useAnchorText.newValue);
     }
+});
+chrome.notifications.onClicked.addListener(function(notificationId) {
+    chrome.notifications.clear(notificationId);
 });
 
 function getPrefsAndUpdateMenu() {
