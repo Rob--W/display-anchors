@@ -104,6 +104,7 @@ if (baseHolder.attachShadow) {
  * @param {string} anchorValue is the ID or name of the anchor element.
  * @param {Element} elem - the element to which the ID or name belongs.
  * @param {object} options - user preferences.
+ * @returns {HTMLElement|null}
  */
 function getAnchor(anchorValue, elem, options) {
     var holder = baseHolder.cloneNode();
@@ -128,6 +129,9 @@ function getAnchor(anchorValue, elem, options) {
     });
 
     var currentStyle = getComputedStyle(elem);
+    if (!currentStyle) {
+        return null;
+    }
     var isPositioned = currentStyle.getPropertyValue('position') !== 'static'; // Neglect "inherit"
     if (isPositioned) {
         holder.style.setProperty('top', '0', 'important');
