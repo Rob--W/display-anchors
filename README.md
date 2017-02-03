@@ -1,6 +1,6 @@
 # Display #Anchors
 
-**Display #Anchors** is a Chromium extension with a single purpose: It offers an easy way to see
+**Display #Anchors** is a browser extension with a single purpose: It offers an easy way to see
 all (invisible) anchors in a page, to make it easier to link to a specific part of a webpage.
 
 - Chrome Web store: https://chrome.google.com/webstore/detail/display-anchors/poahndpaaanbpbeafbkploiobpiiieko
@@ -23,6 +23,8 @@ all (invisible) anchors in a page, to make it easier to link to a specific part 
 2. Click on the input field at "Display #Anchors" (by default, it is "Alt + Shift + A").
 3. Press the keys for the desired shortcut (e.g. Ctrl + Shift + L).
 4. From now on, you can use the chosen shortcut to toggle anchors.
+
+In Firefox, the shortcut cannot be customized yet. This may change once https://bugzil.la/1215061 is resolved.
 
 ### Custom anchor text
 By default, the anchor is used as a label for the link. You may also opt in for a fixed value, as follows:
