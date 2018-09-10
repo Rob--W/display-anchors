@@ -1,7 +1,7 @@
 {
     "name": "Display #Anchors",
     "description": "Displays anchors for all content in the current web page without breaking the layout.",
-    "version": "1.3",
+    "version": "1.4",
     "manifest_version": 2,
     "background": {
         "scripts": ["storage-sync-polyfill.js", "background.js"],
