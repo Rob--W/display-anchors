@@ -46,4 +46,4 @@ not use it). This encouraged me to develop a new extension that offers the desir
 
 ## Copyright
 
-(c) 2013 - 2017 Rob Wu <rob@robwu.nl> (https://robwu.nl/)
+(c) 2013 - 2018 Rob Wu <rob@robwu.nl> (https://robwu.nl/)
