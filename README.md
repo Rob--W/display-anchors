@@ -24,7 +24,7 @@ all (invisible) anchors in a page, to make it easier to link to a specific part 
 3. Press the keys for the desired shortcut (e.g. Ctrl + Shift + L).
 4. From now on, you can use the chosen shortcut to toggle anchors.
 
-In Firefox, the shortcut cannot be customized yet. This may change once https://bugzil.la/1215061 is resolved.
+In Firefox, step 1 is: visit `about:addons`, click on Gears icon, then "Manage Extension Shortcuts".
 
 ### Custom anchor text
 By default, the anchor is used as a label for the link. You may also opt in for a fixed value, as follows:
@@ -34,6 +34,19 @@ By default, the anchor is used as a label for the link. You may also opt in for 
 3. If the menu item is unchecked, then a paragraph symbol ("¶") is used.
 
 If you prefer a different label, visit the options page, set a different value and save the changes.
+
+### Cross-origin frames
+Some websites may embed external content within the document, in a "cross-origin" frame. By default,
+the browser allows the extension to access the top-level document and "same-origin" frames. Access
+to cross-origin frames is restricted by default. If you would like to see anchors in cross-origin
+frames:
+
+1. Right-click on the "#" button in the toolbar.
+2. Check the "Enable anchors in cross-origin frames" menu item.
+3. In the permission prompt, grant the request for access to all websites.
+
+This option is also available at the options page.
+
 
 ## History
 Before creating this extension, I've been using the "Display Anchors" feature of Chris Pederick's
