@@ -1,33 +1,36 @@
-/* globals chrome, console */
 'use strict';
 var CONTEXTMENU_ID_USE_ANCHOR_TEXT = 'contextMenus.useAnchorText';
 
-chrome.browserAction.onClicked.addListener(function(tab) {
+chrome.action.onClicked.addListener(function(tab) {
     toggleAnchors(tab.id);
 });
-function toggleAnchors(tabId) {
-    chrome.tabs.executeScript(tabId, {
-        file: 'toggle-anchors.js',
-        allFrames: true
-    }, function(result) {
-        if (chrome.runtime.lastError) {
-            console.error('executeScript failed:' + chrome.runtime.lastError.message);
-            chrome.notifications.create('informative-message', {
-                type: 'basic',
-                iconUrl: chrome.runtime.getURL('icon128.png'),
-                title: 'Display #Anchors failed',
-                message: 'Cannot read links in the current tab (access denied).',
-            });
-            return;
-        }
-        if (!result || result.indexOf(true) === -1) {
-            return;
-        }
-        chrome.tabs.insertCSS(tabId, {
-            file: 'toggle-anchors.css',
-            allFrames: true
+async function toggleAnchors(tabId) {
+    var target = {
+        tabId,
+        allFrames: true,
+    };
+    let results;
+    try {
+        results = await chrome.scripting.executeScript({
+            target,
+            files: ['toggle-anchors.js'],
         });
-    });
+    } catch (e) {
+        console.error('executeScript failed:' + e.message);
+        await chrome.notifications.create('informative-message', {
+            type: 'basic',
+            iconUrl: chrome.runtime.getURL('icon128.png'),
+            title: 'Display #Anchors failed',
+            message: 'Cannot read links in the current tab (access denied).',
+        });
+        return;
+    }
+    if (results.some(r => r.result === true)) {
+        await chrome.scripting.insertCSS({
+            target,
+            files: ['toggle-anchors.css'],
+        });
+    }
 }
 // contextMenus API may be unavailable, e.g. on Firefox for Android.
 if (chrome.contextMenus) {
@@ -65,7 +68,7 @@ function updateMenu(useAnchorText) {
         type: 'checkbox',
         title: 'Show full #anchor text',
         checked: useAnchorText,
-        contexts: ['browser_action'],
+        contexts: ['action'],
     }, function() {
         if (chrome.runtime.lastError) {
             // An error occurred. Menu already exists.

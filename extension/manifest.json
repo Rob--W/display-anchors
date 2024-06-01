@@ -2,12 +2,12 @@
     "name": "Display #Anchors",
     "description": "Displays anchors for all content in the current web page without breaking the layout.",
     "version": "1.4",
-    "manifest_version": 2,
+    "manifest_version": 3,
     "background": {
-        "scripts": ["storage-sync-polyfill.js", "background.js"],
-        "persistent": false
+        "service_worker": "background.js",
+        "scripts": ["storage-sync-polyfill.js", "background.js"]
     },
-    "browser_action": {
+    "action": {
         "default_title": "Display #Anchors",
         "default_icon": {
             "19": "icon19.png",
@@ -19,25 +19,28 @@
         "128": "icon128.png"
     },
     "permissions": [
+        "scripting",
         "storage",
         "notifications",
         "contextMenus",
         "activeTab"
     ],
     "options_ui": {
-        "page": "options.html",
-        "chrome_style": true
+        "page": "options.html"
     },
     "commands": {
-        "_execute_browser_action": {
+        "_execute_action": {
             "suggested_key": {
                 "default": "Alt+Shift+A"
             }
         }
     },
-    "applications": {
+    "browser_specific_settings": {
         "gecko": {
-            "id": "display-anchors@robwu.nl"
-        }
-    }
+            "id": "display-anchors@robwu.nl",
+            "strict_min_version": "121.0a1"
+        },
+        "gecko_android": {}
+    },
+    "minimum_chrome_version": "121"
 }
