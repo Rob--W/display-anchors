@@ -1,5 +1,10 @@
 'use strict';
 var CONTEXTMENU_ID_USE_ANCHOR_TEXT = 'contextMenus.useAnchorText';
+var CONTEXTMENU_ID_XORIGIN_FRAMES = 'contextMenus.includeCrossOriginFrames';
+// activeTab enables access to same-origin frames. Need <all_urls> for more:
+let permissions = {
+    origins: ['<all_urls>'],
+};
 
 chrome.action.onClicked.addListener(function(tab) {
     toggleAnchors(tab.id);
@@ -40,6 +45,9 @@ if (chrome.contextMenus) {
                 useAnchorText: info.checked,
             });
         }
+        if (info.menuItemId === CONTEXTMENU_ID_XORIGIN_FRAMES) {
+            onUserToggledPermissionsInMenu(info.checked);
+        }
     });
     chrome.runtime.onInstalled.addListener(getPrefsAndUpdateMenu);
     chrome.runtime.onStartup.addListener(getPrefsAndUpdateMenu);
@@ -48,12 +56,15 @@ if (chrome.contextMenus) {
             updateMenu(changes.useAnchorText.newValue);
         }
     });
+    chrome.permissions.onAdded.addListener(renderPermissions);
+    chrome.permissions.onRemoved.addListener(renderPermissions);
 }
 chrome.notifications.onClicked.addListener(function(notificationId) {
     chrome.notifications.clear(notificationId);
 });
 
 function getPrefsAndUpdateMenu() {
+    renderPermissions();
     // Keep defaults in sync with toggle-anchors.js and options.js
     chrome.storage.sync.get({
         useAnchorText: true,
@@ -77,4 +88,33 @@ function updateMenu(useAnchorText) {
             });
         }
     });
+}
+async function renderPermissions() {
+    let checked = await chrome.permissions.contains(permissions);
+    chrome.contextMenus.create({
+        id: CONTEXTMENU_ID_XORIGIN_FRAMES,
+        type: 'checkbox',
+        title: 'Enable anchors in cross-origin frames',
+        checked,
+        contexts: ['action'],
+    }, function() {
+        if (chrome.runtime.lastError) {
+            // An error occurred. Menu already exists.
+            chrome.contextMenus.update(CONTEXTMENU_ID_XORIGIN_FRAMES, {
+                checked,
+            });
+        }
+    });
+}
+async function onUserToggledPermissionsInMenu(wantsPermission) {
+    if (wantsPermission) {
+        // Unchecked until granted.
+        chrome.contextMenus.update(CONTEXTMENU_ID_XORIGIN_FRAMES, {
+            checked: false,
+        });
+        await chrome.permissions.request(permissions);
+        renderPermissions();
+    } else {
+        await chrome.permissions.remove(permissions);
+    }
 }

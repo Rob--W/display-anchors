@@ -3,6 +3,7 @@
 var useAnchorText = document.getElementById('useAnchorText');
 var useCustomText = document.getElementById('useCustomText');
 var customTextValue = document.getElementById('customTextValue');
+var includeCrossOriginFrames = document.getElementById('includeCrossOriginFrames');
 
 function onChangeAnchorTextChoice() {
     chrome.storage.sync.set({
@@ -49,3 +50,27 @@ function renderPreferredAnchorText(preferAnchorText) {
         useCustomText.checked = true;
     }
 }
+
+// activeTab enables access to same-origin frames. Need <all_urls> for more:
+let permissions = {
+    origins: ['<all_urls>'],
+};
+includeCrossOriginFrames.onchange = async function() {
+    if (includeCrossOriginFrames.checked) {
+        let granted = await chrome.permissions.request(permissions);
+        if (!granted) {
+            includeCrossOriginFrames.checked = false;
+        }
+    } else {
+        await chrome.permissions.remove(permissions);
+    }
+};
+async function renderPermissions() {
+    includeCrossOriginFrames.checked =
+        await chrome.permissions.contains(permissions);
+}
+
+// Automatically detect permission changes, even if triggered externally.
+chrome.permissions.onAdded.addListener(renderPermissions);
+chrome.permissions.onRemoved.addListener(renderPermissions);
+renderPermissions(); // Set initial checkbox state.

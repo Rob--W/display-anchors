@@ -23,6 +23,7 @@ footer {
 </style>
 </head>
 <body>
+<fieldset>
 Text to be shown when an anchor is displayed.
 <div class="pref-box">
     <label>
@@ -37,6 +38,16 @@ Text to be shown when an anchor is displayed.
     </label>
     <input type="text" id="customTextValue">
 </div>
+</fieldset>
+<fieldset>
+Some websites embed external content. To display anchors in these cross-origin frames, additional permissions are needed.
+<div class="pref-box">
+    <label>
+        <input type="checkbox" id="includeCrossOriginFrames">
+        Enable anchors in cross-origin frames
+    </label>
+</div>
+</fieldset>
 <footer>
     &copy; 2013 - 2024 Rob Wu &lt;rob@robwu.nl&gt;
     &bull; <a href="https://github.com/Rob--W/display-anchors">Source code on Github</a>

@@ -25,6 +25,8 @@
         "contextMenus",
         "activeTab"
     ],
+    "optional_host_permissions": ["<all_urls>"],
+    "optional_permissions": ["<all_urls>"],
     "options_ui": {
         "page": "options.html"
     },
