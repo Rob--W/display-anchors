@@ -41,30 +41,3 @@
 [a-href\:hover] {
     outline: 1px dashed rgba(229, 151, 0, 0.9) !important;
 }
-
-\:a\.href\: .display-anchors-style-reset {
-    all: unset !important;
-    font-size: inherit !important;
-    font-weight: inherit !important;
-}
-/**
- * Styles designed for Firefox, because they do not support shadow DOM yet,
- * and neither the "revert" CSS keyword, so we need to clone the default UA
- * styles.
- *
- * Sources:
- * https://dxr.mozilla.org/mozilla-central/rev/1d025ac534a6333a8170a59a95a8a3673d4028ee/layout/style/nsLayoutStylesheetCache.cpp#899
- * https://dxr.mozilla.org/mozilla-central/rev/1d025ac534a6333a8170a59a95a8a3673d4028ee/layout/base/nsPresContext.cpp#227
- */
-/* colors based on layout/base/nsPresContext.cpp */
-\:a\.href\: a.display-anchors-style-reset:link {
-    color: #00E !important;
-    text-decoration: underline !important;
-    cursor: pointer !important;
-}
-\:a\.href\: a.display-anchors-style-reset:visited {
-    color: #551a88 !important;
-}
-\:a\.href\: a.display-anchors-style-reset:active {
-    color: #E00 !important;
-}

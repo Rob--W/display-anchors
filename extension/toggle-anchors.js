@@ -1,7 +1,5 @@
+"use strict";
 (function() {
-/* jshint browser:true, maxlen:100 */
-/* globals chrome */
-'use strict';
 
 // Default placement:
 // ------------------A <-- element with id or name attribute ("anchor")
@@ -55,49 +53,13 @@ function stopPropagation(event) {
     event.stopPropagation();
 }
 
-var getShadowRoot;
-if (baseHolder.attachShadow) {
-    // Chrome 53+
-    getShadowRoot = function(holder) {
-        // attachShadow is only allowed for whitelisted elements.
-        // https://github.com/w3c/webcomponents/issues/110
-        var shadowHost = document.createElement('span');
-        shadowHost.style.setProperty('all', 'inherit', 'important');
-        holder.appendChild(shadowHost);
-        return shadowHost.attachShadow({ mode: 'open' });
-    };
-} else if (baseHolder.createShadowRoot) {
-    // Chrome 35+
-    if ('all' in baseHolder.style) {
-        // Chrome 37+ supports the "all" CSS keyword.
-        getShadowRoot = function(holder) {
-            return holder.createShadowRoot();
-        };
-    } else {
-        getShadowRoot = function(holder) {
-            var shadowRoot = holder.createShadowRoot();
-            shadowRoot.resetStyleInheritance = true;
-            return shadowRoot;
-        };
-    }
-} else if (baseHolder.webkitCreateShadowRoot) {
-    // Chrome 33+
-    getShadowRoot = function(holder) {
-        var shadowRoot = holder.webkitCreateShadowRoot();
-        shadowRoot.resetStyleInheritance = true;
-        return shadowRoot;
-    };
-} else {
-    // Firefox, etc.
-    getShadowRoot = function(holder) {
-        return holder;
-    };
-    // There is no style isolation through shadow DOM, need manual work...
-    [baseWrappr, baseAnchor].forEach(function(baseNode) {
-        baseNode.className = 'display-anchors-style-reset';
-        baseNode.style.cssText =
-            baseNode.style.cssText.replace(/;/g, '!important;');
-    });
+function getShadowRoot(holder) {
+    // attachShadow is only allowed for whitelisted elements.
+    // https://github.com/w3c/webcomponents/issues/110
+    var shadowHost = document.createElement('span');
+    shadowHost.style.setProperty('all', 'inherit', 'important');
+    holder.appendChild(shadowHost);
+    return shadowHost.attachShadow({ mode: 'open' });
 }
 
 /**
@@ -177,29 +139,6 @@ function removeAllAnchors() {
     });
 }
 
-var matchesSelector;
-['webkitM', 'm'].some(function(prefix) {
-    var name = prefix + 'atches';
-    if (name in document.documentElement) matchesSelector = name;
-    name += 'Selector';
-    if (name in document.documentElement) matchesSelector = name;
-    return matchesSelector; // If found, then truthy, and [].some() ends.
-});
-
-var closest = function(element, selector) {
-    return element && element.closest(selector);
-};
-if (!baseHolder.closest) {
-    closest = function(element, selector) {
-        while (element) {
-            if (element[matchesSelector](selector)) {
-                return element;
-            }
-            element = element.parentElement;
-        }
-    };
-}
-
 /**
  * @param {object} options - user preferences.
  */
@@ -213,7 +152,7 @@ function addAllAnchors(options) {
     // First generate the elements...
     for (var i = 0; i < length; ++i) {
         elem = elems[i];
-        if (!closest(elem, SELECTOR_ELEMENTS_WITHOUT_ANCHOR)) {
+        if (!elem.closest(SELECTOR_ELEMENTS_WITHOUT_ANCHOR)) {
             // Ignore <param name="..." value="..."> etc.
             var anchorValue = elem.id || elem.name;
             if (anchorValue && (elem = getInsertionPoint(elem))) {
