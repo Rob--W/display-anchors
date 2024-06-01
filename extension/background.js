@@ -29,31 +29,23 @@ function toggleAnchors(tabId) {
         });
     });
 }
-chrome.contextMenus.onClicked.addListener(function(info) {
-    if (info.id === CONTEXTMENU_ID_USE_ANCHOR_TEXT) {
-        chrome.storage.sync.set({
-            useAnchorText: info.checked,
-        });
-    }
-});
-if (typeof browser === 'object') {
-    // Firefox does not support event pages, and context menu items must be
-    // registered whenever the background page loads.
-    getPrefsAndUpdateMenu();
-    chrome.commands.onCommand.addListener(function(command) {
-        if (command === '_execute_browser_action') { // Firefox 51 and earlier.
-            toggleAnchors(null);
+// contextMenus API may be unavailable, e.g. on Firefox for Android.
+if (chrome.contextMenus) {
+    chrome.contextMenus.onClicked.addListener(function(info) {
+        if (info.menuItemId === CONTEXTMENU_ID_USE_ANCHOR_TEXT) {
+            chrome.storage.sync.set({
+                useAnchorText: info.checked,
+            });
         }
     });
-} else {
     chrome.runtime.onInstalled.addListener(getPrefsAndUpdateMenu);
     chrome.runtime.onStartup.addListener(getPrefsAndUpdateMenu);
+    chrome.storage.onChanged.addListener(function(changes) {
+        if (changes.useAnchorText) {
+            updateMenu(changes.useAnchorText.newValue);
+        }
+    });
 }
-chrome.storage.onChanged.addListener(function(changes) {
-    if (changes.useAnchorText) {
-        updateMenu(changes.useAnchorText.newValue);
-    }
-});
 chrome.notifications.onClicked.addListener(function(notificationId) {
     chrome.notifications.clear(notificationId);
 });
@@ -68,17 +60,17 @@ function getPrefsAndUpdateMenu() {
 }
 
 function updateMenu(useAnchorText) {
-    chrome.contextMenus.update(CONTEXTMENU_ID_USE_ANCHOR_TEXT, {
+    chrome.contextMenus.create({
+        id: CONTEXTMENU_ID_USE_ANCHOR_TEXT,
+        type: 'checkbox',
+        title: 'Show full #anchor text',
         checked: useAnchorText,
+        contexts: ['browser_action'],
     }, function() {
         if (chrome.runtime.lastError) {
-            // An error occurred. Assume that the menu does not exist.
-            chrome.contextMenus.create({
-                id: CONTEXTMENU_ID_USE_ANCHOR_TEXT,
-                type: 'checkbox',
-                title: 'Show full #anchor text',
+            // An error occurred. Menu already exists.
+            chrome.contextMenus.update(CONTEXTMENU_ID_USE_ANCHOR_TEXT, {
                 checked: useAnchorText,
-                contexts: ['browser_action'],
             });
         }
     });
