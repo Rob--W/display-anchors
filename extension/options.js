@@ -1,21 +1,25 @@
-/* globals chrome */
-/* jshint browser:true */
 'use strict';
 
 var useAnchorText = document.getElementById('useAnchorText');
 var useCustomText = document.getElementById('useCustomText');
 var customTextValue = document.getElementById('customTextValue');
 
-document.getElementById('anchorTextForm').onsubmit = function(event) {
-    event.preventDefault();
+function onChangeAnchorTextChoice() {
     chrome.storage.sync.set({
         useAnchorText: useAnchorText.checked,
+    });
+}
+function onChangeCustomTextValue() {
+    chrome.storage.sync.set({
         customTextValue: customTextValue.value,
     });
-};
+}
+useAnchorText.onchange = useCustomText.onchange = onChangeAnchorTextChoice;
 customTextValue.onfocus = function() {
     useCustomText.checked = true;
+    onChangeAnchorTextChoice();
 };
+customTextValue.oninput = onChangeCustomTextValue;
 
 // Keep defaults in sync with background.js and toggle-anchors.js
 chrome.storage.sync.get({
