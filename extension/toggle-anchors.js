@@ -186,9 +186,7 @@ function getInsertionPoint(element) {
 }
 
 
-// Content script is programatically activated. So, do something (toggle):
-removeAllAnchors();
-if (!window.hasShown) {
+function showAllAnchors() {
     var defaultConfig = {
         useAnchorText: true,
         customTextValue: '\xb6', // paragraph symbol.
@@ -211,13 +209,26 @@ if (!window.hasShown) {
         addAllAnchors(defaultConfig);
     }
 }
+// Content script activated programmatically. So, do something (toggle):
+removeAllAnchors();
+if (!window.hasShown) {
+    showAllAnchors();
+}
 window.hasShown = !window.hasShown;
+// When a frame was (re)loaded later, its state may be out of sync with the top
+// frame. hide-anchors.js is then run to fix up the state, which relies on
+// window.hasShown and window.removeAllAnchors().
+window.removeAllAnchors = removeAllAnchors;
+// When cross-origin access was temporarily revoked, the anchors toggled, then
+// shown again, then the cross-origin frame may go out of sync at the next
+// click. We fix that up with show-anchors.js, which calls showAllAnchors().
+window.showAllAnchors = showAllAnchors;
 
 // Used to communicate to the background whether the CSS file needs to be inserted.
 if (window.hasrun) {
-    return false;
+    return window.hasShown ? "shown" : "hidden";
 } else {
     window.hasrun = true;
-    return true;
+    return "shown1";
 }
 })();

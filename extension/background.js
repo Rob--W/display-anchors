@@ -18,6 +18,7 @@ async function toggleAnchors(tabId) {
     try {
         results = await chrome.scripting.executeScript({
             target,
+            injectImmediately: true,
             files: ['toggle-anchors.js'],
         });
     } catch (e) {
@@ -30,7 +31,34 @@ async function toggleAnchors(tabId) {
         });
         return;
     }
-    if (results.some(r => r.result === true)) {
+    if (results.find(r => r.frameId === 0 && r.result === "hidden")) {
+        if (results.some(r => r.result === "shown1" || r.result === "shown")) {
+            // Anchors hidden in top frame, but shown in a (new) child frame.
+            // Fix up state by hiding the anchors in all frames.
+            await chrome.scripting.executeScript({
+                target,
+                injectImmediately: true,
+                files: ['hide-anchors.js'],
+            });
+        }
+        return;
+    }
+    if (results.find(r => r.frameId === 0 && r.result === "shown")) {
+        if (results.some(r => r.result === "hidden")) {
+            // Anchors shown in the top frame, but hidden in a child frame.
+            // Could happen if the cross-origin permission was briefly removed
+            // then restored, in which case the state can go out-of-sync.
+            await chrome.scripting.executeScript({
+                target,
+                injectImmediately: true,
+                files: ['show-anchors.js'],
+            });
+        }
+        // Fall through to insertCSS if needed.
+    }
+    if (results.some(r => r.result === "shown1")) {
+        // Some frame executed toggle-anchors.js for the first time, make sure
+        // that toggle-anchors.css is also added in the frame.
         await chrome.scripting.insertCSS({
             target,
             files: ['toggle-anchors.css'],
