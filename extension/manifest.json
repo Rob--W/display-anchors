@@ -1,7 +1,7 @@
 {
     "name": "Display #Anchors",
     "description": "Displays anchors for all content in the current web page without breaking the layout.",
-    "version": "1.4",
+    "version": "1.5",
     "manifest_version": 3,
     "background": {
         "service_worker": "background.js",
